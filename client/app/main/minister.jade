@@ -1,0 +1,29 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+header#banner.hero-unit
+  .container
+    h1 Он-лайн приемная
+
+.container
+  .row
+    .col-lg-12
+      h1.page-header Appeals:
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='appeal in awesomeAppeals')
+        li(ng-class='{bg_executed: appeal.is_executed}')
+          a(href='#', ng-click='setSelectedAppeal(appeal);', tooltip='{{appeal.info}}')
+            | {{appeal.name}}
+            button.close(type='button', ng-click='deleteThing(thing)') ×
+
+  form.appeal-form(ng-show='selectedAppeal.name')
+    label Решение {{selectedAppeal.name}} ({{selectedAppeal.message}}):
+    p.input-group
+      select.form-control(ng-model='selectedAppeal.decision', ng-options='decision for decision in decisionList')
+      //input.form-control(type='text', placeholder='decision', ng-model='selectedAppeal.decision')
+      input.form-control(type='text', placeholder='Комментарий для секретаря', ng-model='selectedAppeal.comment')
+      span.input-group-btn
+        button.btn.btn-primary(type='submit', ng-click='updateAppeal()') Принять решение
+
+footer.footer
+  .container
+    p
+      | Он-лайн приемная, кабинет министра
